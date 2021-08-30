@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import country.controllers.exception.ResourceNotFoundException;
@@ -25,6 +27,8 @@ import country.persistence.entities.Contacts;
 import country.persistence.entities.Leads;
 import country.persistence.repository.ContactsRepository;
 import country.service.ContactService;
+import country.persistence.repository.ContactRepository;
+
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,6 +38,9 @@ public class Contactscontroller {
 
 	@Autowired
 	private ContactsRepository ContactsRepository;
+	
+	@Autowired
+	private ContactRepository ContactRepository;
 	
 	@Autowired
 	private ContactService service;
@@ -88,7 +95,6 @@ public class Contactscontroller {
 	        contacts.setfirst_Name(ContactsDetails.getfirst_Name());
 	        contacts.setmiddle_Name(ContactsDetails.getmiddle_Name());
 	        contacts.setlast_Name(ContactsDetails.getlast_Name());
-	        contacts.setcontacts_owner(ContactsDetails.getcontacts_owner());
 	        contacts.setaccount_Name(ContactsDetails.getaccount_Name());
 	        contacts.setreports_To(ContactsDetails.getreports_To());
 	        contacts.setTitle(ContactsDetails.getTitle());
@@ -125,4 +131,10 @@ public class Contactscontroller {
 	 }
 	
 
+	 @RequestMapping(value = "/contactCount", method = RequestMethod.GET)
+		@ResponseBody
+		public long countEntities() {
+			long count = ContactRepository.count();
+			return count;
+		}
 }

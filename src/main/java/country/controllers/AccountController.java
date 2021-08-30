@@ -19,13 +19,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import country.controllers.exception.ResourceNotFoundException;
 import country.persistence.entities.Account;
 import country.persistence.entities.Opportunity;
 import country.persistence.repository.AccountRepository;
+import country.persistence.repository.AccountsRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -34,6 +37,10 @@ public class AccountController {
 	
 	  @Autowired
 	  private AccountRepository AccountRepo;
+	  
+	  @Autowired
+	  private AccountsRepository AccountsRepo;
+	  
 	  
 	  @GetMapping("/account")
 	  public ResponseEntity<List<Account>> getAllTutorials(@RequestParam(required = false) String type) {
@@ -79,22 +86,24 @@ public class AccountController {
 	  @PostMapping(value ="/account")
 	   public ResponseEntity<Account> postAccount(@RequestBody Account account) {
 	    try {
+	    	System.out.println(account);
 	    	Account _account = AccountRepo.save(new Account( 0,
 	    			account.getAccount_name(),
 	    			account.getAccount_owner(),
 	    			account.getType(),
+	    			
 	    			account.getWebsite(),
 	    			account.getParent_account(),
 	    			account.getDescription(),
 	    			account.getIndustry(),
 	    			account.getPhone_Number(),
-	    			account.getEmployee(),
 	    			account.getAddress(),
 	    			account.getEmail(),
-	    			account.getPincode(),
 	    			account.getCountry(),
 	    			account.getState(),
-	    			account.getCity() ));
+	    			account.getCity(),
+	    			account.getEmployee(),
+	    			account.getPincode() ));
 	      return new ResponseEntity<>(_account, HttpStatus.CREATED);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
@@ -125,5 +134,11 @@ public class AccountController {
 	        return ResponseEntity.ok(updatedAccount);
 	    }
     
+	  @RequestMapping(value = "/accountCount", method = RequestMethod.GET)
+		@ResponseBody
+		public long countEntities() {
+			long count = AccountsRepo.count();
+			return count;
+		}
 
 }

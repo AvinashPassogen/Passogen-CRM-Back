@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import country.controllers.exception.ResourceNotFoundException;
 import country.persistence.entities.task;
 import country.persistence.repository.TaskRepository;
-
+import country.persistence.repository.TasksRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -32,6 +34,9 @@ public class TaskController {
 	
 	@Autowired
 	private TaskRepository TaskRepository;
+	
+	@Autowired
+	private TasksRepository TasksRepository;
 	
 	@GetMapping("/task")
 	  public ResponseEntity<List<task>> getAllTutorials(@RequestParam(required = false) String subject) {
@@ -131,5 +136,18 @@ public class TaskController {
 		    	TaskRepository.save(task);
 				return "Record Saved";
 				
+			}
+		 
+		 @RequestMapping(value = "/allcountTask", method = RequestMethod.GET)
+			@ResponseBody
+			public long countAllEntities() {
+				long count = TasksRepository.countAll();				return count;
+			}
+		 
+		 @RequestMapping(value = "/countTask", method = RequestMethod.GET)
+			@ResponseBody
+			public long countEntities() {
+				long count = TasksRepository.count();
+				return count;
 			}
 }

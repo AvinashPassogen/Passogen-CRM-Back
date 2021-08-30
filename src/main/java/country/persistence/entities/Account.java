@@ -22,19 +22,19 @@ public class Account {
     private String Phone_Number;
     private String address;
     private String email;
-    private String pincode;
     private String country;
     private String state;
     private String city;
     private String employee;
-    
+    private String pincode;
+
 	public Account() {
 	
 	}
 
 	public Account(long id, String account_name, String account_owner, String type, String website,
 			String parent_account, String description, String industry, String phone_Number, String address,
-			String email, String pincode, String country, String state, String city, String employee) {
+			String email, String country, String state, String city, String employee, String pincode) {
 		super();
 		this.id = id;
 		this.account_name = account_name;
@@ -47,11 +47,11 @@ public class Account {
 		Phone_Number = phone_Number;
 		this.address = address;
 		this.email = email;
-		this.pincode = pincode;
 		this.country = country;
 		this.state = state;
 		this.city = city;
 		this.employee = employee;
+		this.pincode = pincode;
 	}
 
 	 @Id
@@ -159,14 +159,6 @@ public class Account {
 	}
 
 	
-	@Column(name="pincode")
-	public String getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
 
 	@Column(name="country")
 	public String getCountry() {
@@ -205,6 +197,14 @@ public class Account {
 		this.employee = employee;
 	}
 	
+	@Column(name="pincode")
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
 	@Override
     public String toString() {
         return " [id=" + id + ","

@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import country.controllers.exception.ResourceNotFoundException;
@@ -150,4 +152,12 @@ public class LeadsController {
 	        final Leads updatedLeads =leadsRepo.save(leads);
 	        return ResponseEntity.ok(updatedLeads);
 	    }
+	    
+	    @RequestMapping(value = "/leadcount", method = RequestMethod.GET)
+		@ResponseBody
+		public long countEntities() {
+			long count = leadRepo.count();
+			return count;
+		}
+
 }

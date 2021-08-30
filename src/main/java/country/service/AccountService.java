@@ -18,6 +18,11 @@ public class AccountService {
 		return repo.findByEmail(email);
 	}
 
+	public Account saveAccount(Account account) {
+		// TODO Auto-generated method stub
+		return repo.save(account);
+	}
+
 	
 
 }

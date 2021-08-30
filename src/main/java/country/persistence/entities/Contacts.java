@@ -14,7 +14,7 @@ public class Contacts {
 public Contacts() {
 		
 	}
-	public Contacts(long id,String salutation, String first_Name,String middle_Name,String last_Name,String contacts_owner,
+	public Contacts(long id,String salutation, String first_Name,String middle_Name,String last_Name,
 			String account_Name,String reports_To,String title,String department,String email,
 			String fax,String phone_Number, String mobile_Number,String address,String street,
 			String city,String state,String pincode,String country) {
@@ -22,7 +22,6 @@ public Contacts() {
 		this.first_Name=first_Name;
 		this.middle_Name=middle_Name;
 		this.last_Name=last_Name;
-		this.contacts_owner=contacts_owner;
 		this.account_Name=account_Name;
 		this.reports_To=reports_To;
 		this.title=title;
@@ -57,8 +56,6 @@ public Contacts() {
 	@Column(name = "last_Name")
 	private String last_Name;
 	
-	@Column(name = "contacts_owner")
-	private String contacts_owner;
 	
 	@Column(name = "account_Name")
 	private String account_Name;
@@ -135,12 +132,6 @@ public Contacts() {
 	}
 	public void setlast_Name(String last_Name) {
 		this.last_Name = last_Name;
-	}
-	public String getcontacts_owner() {
-		return contacts_owner;
-	}
-	public void setcontacts_owner(String contacts_owner) {
-		this.contacts_owner = contacts_owner;
 	}
 	public String getaccount_Name() {
 		return account_Name;
@@ -230,6 +221,6 @@ public Contacts() {
 	
 	@Override
     public String toString() {
-        return "contacts [id=" + id + ",salutation=" + salutation + ", first_Name=" + first_Name + ",middle_Name=" + middle_Name +", last_Name=" + last_Name + ",contacts_owner = " + contacts_owner +",account_Name = "+ account_Name + ",reports_To =" + reports_To + ",title = " + title +",department = " + department + ", email=" + email+ ",fax =" + fax +",phone_Number = " + phone_Number + ",mobile_Number = "+ mobile_Number +",address = "+ address +",street = "+ street +",city = "+ city +",state ="+ state +"pincode="+ pincode +",country="+ country +"]";
+        return "contacts [id=" + id + ",salutation=" + salutation + ", first_Name=" + first_Name + ",middle_Name=" + middle_Name +", last_Name=" + last_Name + ",account_Name = "+ account_Name + ",reports_To =" + reports_To + ",title = " + title +",department = " + department + ", email=" + email+ ",fax =" + fax +",phone_Number = " + phone_Number + ",mobile_Number = "+ mobile_Number +",address = "+ address +",street = "+ street +",city = "+ city +",state ="+ state +"pincode="+ pincode +",country="+ country +"]";
     }
 }

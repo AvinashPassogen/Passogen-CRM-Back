@@ -1,5 +1,7 @@
 package country.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +29,8 @@ public class JwtController {
 	@Autowired
     private AuthenticationManager authenticationManager;
 
+	@Autowired
+	private UserController userCont;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -34,7 +39,7 @@ public class JwtController {
     private JwtUtil jwtUtil;
     
     @RequestMapping(value = "/token", method = RequestMethod.POST)
-	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception
+	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest, HttpSession session) throws Exception
 	{
 		System.out.println(jwtRequest);
 		try {
@@ -55,11 +60,20 @@ public class JwtController {
 
         String token = this.jwtUtil.generateToken(userDetails);
         System.out.println("JWT " + token);
-
+		session.setAttribute("user", jwtRequest.getUsername());
+		
         //{"token":"value"}
         
         return ResponseEntity.ok(new JwtResponse(token));
 
+	}
+    
+    @GetMapping("/getToken")
+	public ResponseEntity<?> getToken(HttpSession session)
+	{
+    	String token = (String) session.getAttribute("token");
+    	System.out.println("token = " + token);
+    	return ResponseEntity.ok(token);
 	}
     
   
